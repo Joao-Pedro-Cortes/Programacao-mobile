@@ -1,6 +1,5 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 
-import { CORES } from "@/constants/tema";
 import { Produto } from "@/types/produto";
 
 interface CardProdutoProps {
@@ -15,17 +14,27 @@ export function CardProduto({
   aoAlternarFavorito,
 }: CardProdutoProps) {
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: produto.thumbnail }} style={styles.imagem} />
+    <View className="mb-3 flex-row items-center gap-3 rounded-card bg-slate-100 p-3 dark:bg-superficie">
+      <Image
+        source={{ uri: produto.thumbnail }}
+        className="h-16 w-16 rounded-lg bg-slate-200 dark:bg-fundo"
+      />
 
-      <View style={styles.info}>
-        <Text style={styles.titulo} numberOfLines={2}>
+      <View className="flex-1">
+        <Text
+          className="text-[15px] font-semibold text-slate-900 dark:text-white"
+          numberOfLines={2}
+        >
           {produto.title}
         </Text>
 
-        <Text style={styles.marca}>{produto.brand ?? "Sem marca"}</Text>
+        <Text className="mt-0.5 text-xs text-slate-500 dark:text-suave">
+          {produto.brand ?? "Sem marca"}
+        </Text>
 
-        <Text style={styles.preco}>R$ {produto.price.toFixed(2)}</Text>
+        <Text className="mt-1.5 text-[17px] text-sky-700 dark:text-destaque">
+          R$ {produto.price.toFixed(2)}
+        </Text>
       </View>
 
       <Pressable
@@ -34,63 +43,12 @@ export function CardProduto({
         accessibilityLabel={
           favorito ? "Remover dos favoritos" : "Adicionar aos favoritos"
         }
-        style={styles.botao}
+        className="min-h-[44px] min-w-[44px] items-center justify-center active:opacity-60"
       >
-        <Text style={styles.estrela}>{favorito ? "★" : "■"}</Text>
+        <Text className="text-2xl text-sky-600 dark:text-destaque">
+          {favorito ? "★" : "■"}
+        </Text>
       </Pressable>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    flexDirection: "column",
-    alignItems: "center",
-    gap: 12,
-    backgroundColor: CORES.superficie,
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 12,
-  },
-
-  imagem: {
-    width: 64,
-    height: 64,
-    borderRadius: 8,
-    backgroundColor: "#0B1220",
-  },
-
-  info: {
-    flex: 1,
-  },
-
-  titulo: {
-    color: CORES.texto,
-    fontSize: 15,
-    fontWeight: "600",
-  },
-
-  marca: {
-    color: CORES.textoSuave,
-    fontSize: 12,
-    marginTop: 2,
-  },
-
-  preco: {
-    color: CORES.destaque,
-    fontSize: 17,
-    marginTop: 6,
-  },
-
-  botao: {
-    minWidth: 44,
-    minHeight: 44,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  estrela: {
-    color: CORES.destaque,
-    fontSize: 24,
-  },
-});
