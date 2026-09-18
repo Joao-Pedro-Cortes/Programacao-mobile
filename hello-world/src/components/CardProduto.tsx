@@ -6,36 +6,43 @@ interface CardProdutoProps {
   produto: Produto;
   favorito: boolean;
   aoAlternarFavorito: (id: number) => void;
+  aoAbrir?: () => void;
 }
 
 export function CardProduto({
   produto,
   favorito,
   aoAlternarFavorito,
+  aoAbrir,
 }: CardProdutoProps) {
   return (
-    <View className="mb-3 flex-row items-center gap-3 rounded-card bg-slate-100 p-3 dark:bg-superficie">
+    <View className="flex-row items-center gap-3 bg-slate-100 dark:bg-superficie rounded-card p-3 mb-3">
       <Image
         source={{ uri: produto.thumbnail }}
-        className="h-16 w-16 rounded-lg bg-slate-200 dark:bg-fundo"
+        className="w-16 h-16 rounded-lg bg-slate-200 dark:bg-fundo"
       />
 
-      <View className="flex-1">
+      <Pressable
+        onPress={aoAbrir}
+        className="flex-1 active:opacity-70"
+        accessibilityRole="button"
+        accessibilityLabel={`Abrir ${produto.title}`}
+      >
         <Text
-          className="text-[15px] font-semibold text-slate-900 dark:text-white"
+          className="text-slate-900 dark:text-white text-[15px] font-semibold"
           numberOfLines={2}
         >
           {produto.title}
         </Text>
 
-        <Text className="mt-0.5 text-xs text-slate-500 dark:text-suave">
+        <Text className="text-slate-500 dark:text-suave text-xs mt-0.5">
           {produto.brand ?? "Sem marca"}
         </Text>
 
-        <Text className="mt-1.5 text-[17px] text-sky-700 dark:text-destaque">
+        <Text className="text-sky-700 dark:text-destaque text-[17px] mt-1.5">
           R$ {produto.price.toFixed(2)}
         </Text>
-      </View>
+      </Pressable>
 
       <Pressable
         onPress={() => aoAlternarFavorito(produto.id)}
@@ -43,10 +50,10 @@ export function CardProduto({
         accessibilityLabel={
           favorito ? "Remover dos favoritos" : "Adicionar aos favoritos"
         }
-        className="min-h-[44px] min-w-[44px] items-center justify-center active:opacity-60"
+        className="min-w-[44px] min-h-[44px] items-center justify-center active:opacity-60"
       >
-        <Text className="text-2xl text-sky-600 dark:text-destaque">
-          {favorito ? "★" : "■"}
+        <Text className="text-sky-600 dark:text-destaque text-2xl">
+          {favorito ? "★" : "☆"}
         </Text>
       </Pressable>
     </View>

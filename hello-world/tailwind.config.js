@@ -1,11 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-
-  content: ["./App.tsx", "./src/**/*.{js,jsx,ts,tsx}"],
-
+  content: ["./app/**/*.{js,jsx,ts,tsx}", "./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
-
   theme: {
     extend: {
       colors: {
@@ -15,12 +12,10 @@ module.exports = {
         alerta: "#F0A500",
         suave: "#CBD5E1",
       },
-
       borderRadius: {
         card: "12px",
       },
     },
   },
-
   plugins: [],
 };
