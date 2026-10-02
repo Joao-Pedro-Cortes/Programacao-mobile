@@ -24,6 +24,9 @@ export default function LayoutAbas() {
         },
         headerTintColor: cores.texto,
         headerRight: () => <BotaoTema />,
+
+        // NOVO: define o fundo das telas das abas.
+        sceneStyle: { backgroundColor: cores.fundo },
       }}
     >
       <Tabs.Screen
